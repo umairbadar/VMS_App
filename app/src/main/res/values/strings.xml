@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">VMS App</string>
+    <string name="toddlers_n_1_year_5_years"><![CDATA[Toddlers\n< 1 Year - > 5 Years]]></string>
+    <string name="teen_age_n_5_years_18_years"><![CDATA[Teen Age\n< 5 Years - > 18 Years]]></string>
+    <string name="adults_n_18_years_35_years"><![CDATA[Adults\n< 18 Years - > 35 Years]]></string>
+    <string name="mature_n_35_years_55_years"><![CDATA[Mature\n< 35 Years - > 55 Years]]></string>
+    <string name="old_person_n_55_years"><![CDATA[Old Person\n>= 55 Years]]></string>
+    <string name="new_born_n1_day_1_year"><![CDATA[New Born\n1 Day - > 1 Year]]></string>
+    <string name="add_family_member">Add Family Member</string>
+    <string name="name">Name</string>
+    <string name="select_date_of_birth">Select Date of Birth</string>
+    <string name="add">Add</string>
+</resources>
