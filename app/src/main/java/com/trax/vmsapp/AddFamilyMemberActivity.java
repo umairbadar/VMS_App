@@ -284,6 +284,11 @@ public class AddFamilyMemberActivity extends AppCompatActivity implements View.O
         if (response.has("data")) {
             Toast.makeText(getApplicationContext(), response.getString("message"),
                     Toast.LENGTH_LONG).show();
+
+            et_family_member_name.setText("");
+            tv_dob.setText("");
+            spn_blood_group.setSelection(0);
+            spn_age_group.setSelection(0);
         }
     }
 
@@ -366,7 +371,7 @@ public class AddFamilyMemberActivity extends AppCompatActivity implements View.O
                         MediaType.parse("image/*"));
                 MultipartBody.Part image = MultipartBody.Part.createFormData(
                         "image", file.getName(), requestBody);
-                APIRequest.request(authorization, Constants.MethodPOSTMultipart,
+                APIRequest.request(authorization, Constants.MethodPOSTSimple,
                         Constants.EndpointAddMember, data, image, null, this);
             } else {
                 APIRequest.request(authorization, Constants.MethodPOSTSimple,

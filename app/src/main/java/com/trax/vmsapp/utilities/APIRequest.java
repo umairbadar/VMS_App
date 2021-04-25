@@ -76,7 +76,11 @@ public class APIRequest {
 
             object = api.get(endpoint_url);
         } else if (method == Constants.MethodPOSTSimple) {
-            object = api.post(endpoint_url, data);
+            if (endpoint.equals(Constants.EndpointAddMember) && file != null){
+                object = api.post(endpoint_url, data, file);
+            } else {
+                object = api.post(endpoint_url, data);
+            }
         } else {
             object = api.postMultipart(endpoint_url, data, file);
         }

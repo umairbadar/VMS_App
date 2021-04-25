@@ -21,6 +21,10 @@ public interface API {
 
     @Multipart
     @POST
+    Call<Object> post(@Url String url, @QueryMap Map<String, Object> data, @Part MultipartBody.Part image);
+
+    @Multipart
+    @POST
     Call<Object> postMultipart(@Url String url, @PartMap Map<String, Object> data,
                                @Part MultipartBody.Part image);
 }
