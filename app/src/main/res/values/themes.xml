@@ -36,4 +36,13 @@
         <item name="android:textColor">@color/colorGreen</item>
     </style>
 
+    <style name="Theme.VMSApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.VMSApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.VMSApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

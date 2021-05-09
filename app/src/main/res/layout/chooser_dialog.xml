@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_dialog"
+        android:layout_margin="8dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_option"
+            android:textColor="@color/teal_200"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:padding="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/teal_200"
+            android:layout_height="2dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="4dp"/>
+
+        <TextView
+            android:id="@+id/tv_open_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/camera"
+            android:textSize="16sp"
+            android:textColor="@color/teal_200"
+            android:drawablePadding="10dp"
+            app:drawableEndCompat="@drawable/ic_menu_camera"
+            android:padding="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/teal_200"
+            android:layout_height="2dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="4dp"/>
+
+        <TextView
+            android:id="@+id/tv_open_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/gallery"
+            android:textSize="16sp"
+            android:textColor="@color/teal_200"
+            android:drawablePadding="10dp"
+            app:drawableEndCompat="@drawable/ic_menu_gallery"
+            android:padding="10dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
