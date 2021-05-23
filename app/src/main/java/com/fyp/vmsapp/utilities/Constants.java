@@ -24,9 +24,10 @@ abstract public class Constants {
 
             EndpointLogin = "user/login",
             EndpointSignup = "user/signup",
-            EndpointGetData = "family_member/data",
+            EndpointGetData = "data",
             EndpointAddMember = "family_member/submit",
             EndpointList = "family_member/list",
+            EndpointDeleteMember = "family_member/delete",
 
     StaffRole = "staff",  //last mile
             RiderRole = "rider",  //last mile
@@ -34,8 +35,8 @@ abstract public class Constants {
     RemainingSeparator = " out of ",
 
     NavigatePrefix = "http://maps.google.com/maps?daddr=",
-            CallPrefix = "tel:55",
-            SupportContactNumber ="021111118729",
+            CallPrefix = "tel:",
+            SupportContactNumber ="+923102923498",
             ImageUrl = BaseURL + "/storage/";
 
     static int RequestTimeoutDuration = 1;

@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_article"
             android:title="@string/menu_article" />
         <item
+            android:id="@+id/nav_live_consultation"
+            android:icon="@drawable/ic_call"
+            android:title="@string/live_consultation" />
+        <item
             android:id="@+id/nav_slideshow"
             android:title="@string/menu_slideshow"
             android:visible="false" />

@@ -24,6 +24,12 @@
         tools:layout="@layout/fragment_article" />
 
     <fragment
+        android:id="@+id/nav_article_details"
+        android:name="com.fyp.vmsapp.ui.article.ArticleDetailFragment"
+        android:label="@string/menu_article"
+        tools:layout="@layout/fragment_article_detail" />
+
+    <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.fyp.vmsapp.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"

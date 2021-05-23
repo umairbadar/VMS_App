@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.article.ArticleDetailFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:padding="10dp"
+        android:text="CDC and FDA take many steps to make sure vaccines are very safe" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:padding="5dp"
+        android:textSize="16sp"
+        android:text="CDC and FDA take many steps to make sure vaccines are very safe
+Before a vaccine is approved for use in the U.S., it goes through years of careful testing to make sure it is safe and effective. Highly trained scientists and doctors at the U.S. Food and Drug Administration (FDA) evaluate the results of these clinical studies. FDA also inspects the sites where vaccines are made to make sure they follow strict manufacturing guidelines. Once a vaccine is licensed, FDA and CDC continue to monitor its use and make sure there are no safety concerns.
+Like any medication, vaccines can cause side effects. In most cases, side effects are mild (e.g., soreness where the shot was given) but go away within a few days. Severe, long-lasting side effects from vaccines are rare.
+ Every year, tens of thousands of Americans get sick from diseases that could be prevented by vaccines – some people are hospitalized, some even die. Immunization is our best protection against these diseases. Vaccines are recommended for children, teens, and adults based on different factors like age, health conditions, lifestyle, jobs, and travel. CDC and other medical experts update vaccine recommendations every year based on the latest research and science. Vaccination is a critical step in protecting those that are most vulnerable to illness – infants and young children, the elderly, and those with chronic conditions and weakened immune systems." />
+
+</LinearLayout>

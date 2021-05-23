@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String password = activityLoginBinding.etPassword.getText().toString();
 
         if (id == R.id.btn_login) {
-            if (isNetworkAvailable()){
+            if (isNetworkAvailable()) {
                 try {
                     InputMethodManager inputManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                     inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
@@ -122,8 +122,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } else if (phoneNumber.length() < 11) {
                     activityLoginBinding.etPhoneNumber.setError("Enter Valid Phone Number");
                     activityLoginBinding.etPhoneNumber.requestFocus();
-                }
-                else if (password.isEmpty()) {
+                } else if (password.isEmpty()) {
                     activityLoginBinding.etPassword.setError("Enter Password");
                     activityLoginBinding.etPassword.requestFocus();
                 } else {

@@ -40,6 +40,7 @@ import com.fyp.vmsapp.utilities.APIRequest;
 import com.fyp.vmsapp.utilities.Constants;
 import com.fyp.vmsapp.utilities.Loader;
 import com.fyp.vmsapp.utilities.ResponseInterface;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,6 +76,7 @@ public class AddFamilyMemberFragment extends Fragment implements View.OnClickLis
 
     private CircleImageView circleImageView;
     private EditText et_family_member_name;
+    private EditText et_desc;
     private TextView tv_dob;
 
     private ProgressDialog loader;
@@ -99,6 +101,14 @@ public class AddFamilyMemberFragment extends Fragment implements View.OnClickLis
 
     private NavController navController;
 
+    private int family_member_id = 0;
+    private int relationship_id = 0;
+    private int blood_group_ids = 0;
+    private String name = "";
+    private String image_path = "";
+    private String desc = "";
+    private String dob = "";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +131,7 @@ public class AddFamilyMemberFragment extends Fragment implements View.OnClickLis
         circleImageView = view.findViewById(R.id.profile_image);
         circleImageView.setOnClickListener(this);
         et_family_member_name = view.findViewById(R.id.et_family_member_name);
+        et_desc = view.findViewById(R.id.et_desc);
         tv_dob = view.findViewById(R.id.tv_dob);
         tv_dob.setOnClickListener(this);
 
@@ -189,7 +200,6 @@ public class AddFamilyMemberFragment extends Fragment implements View.OnClickLis
 
         if (getArguments() != null) {
             String filename = getArguments().getString("bitmap");
-
             try {
                 FileInputStream bitmap_stream = requireActivity().openFileInput(filename);
                 selectedBitmapImage = BitmapFactory.decodeStream(bitmap_stream);
@@ -197,6 +207,30 @@ public class AddFamilyMemberFragment extends Fragment implements View.OnClickLis
                 bitmap_stream.close();
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+
+            family_member_id = getArguments().getInt("family_member_id");
+            blood_group_ids = getArguments().getInt("blood_group_id");
+            relationship_id = getArguments().getInt("relationship_id");
+            image_path = getArguments().getString("image_path");
+            name = getArguments().getString("name");
+            et_family_member_name.setText(name);
+            desc = getArguments().getString("desc");
+            et_desc.setText(desc);
+            dob = getArguments().getString("dob");
+            tv_dob.setText(dob);
+
+            if (family_member_id != 0)
+                btn_add.setText("Update");
+
+            if (!image_path.equals("")) {
+                String url = Constants.BaseURL + "/storage/app/public/" + image_path;
+                Picasso.get()
+                        .load(url)
+                        .placeholder(R.drawable.no_image)
+                        .fit()
+                        .centerInside()
+                        .into(circleImageView);
             }
         }
     }
@@ -232,6 +266,13 @@ public class AddFamilyMemberFragment extends Fragment implements View.OnClickLis
 
                 Bundle args = new Bundle();
                 args.putString("bitmap", filename);
+                args.putInt("family_member_id", family_member_id);
+                args.putInt("blood_group_id", blood_group_ids);
+                args.putInt("relationship_id", relationship_id);
+                args.putString("name", name);
+                args.putString("image_path", "");
+                args.putString("desc", desc);
+                args.putString("dob", dob);
                 NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.nav_add_family_member, true).build();
                 navController.navigate(R.id.nav_add_family_member, args, navOptions);
             } catch (Exception e) {
@@ -252,7 +293,7 @@ public class AddFamilyMemberFragment extends Fragment implements View.OnClickLis
 
         Map<String, Object> data = new HashMap<>();
 
-        APIRequest.request(authorization, Constants.MethodGET,
+        APIRequest.request("", Constants.MethodGET,
                 Constants.EndpointGetData, data, null, null, this);
     }
 
@@ -302,14 +343,15 @@ public class AddFamilyMemberFragment extends Fragment implements View.OnClickLis
 
                 dataAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                 spn_blood_group.setAdapter(dataAdapter);
+                spn_blood_group.setSelection(blood_group_id.indexOf(blood_group_ids));
             }
         }
 
-        if (response.has("age_category")) {
-            if (response.getJSONArray("age_category").length() > 0) {
+        if (response.has("relationship")) {
+            if (response.getJSONArray("relationship").length() > 0) {
                 age_group_id.add(0);
-                age_group.add("Select Age Group");
-                JSONArray jsonArray = response.getJSONArray("age_category");
+                age_group.add("Select Relationship");
+                JSONArray jsonArray = response.getJSONArray("relationship");
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     age_group_id.add(jsonObject.getInt("id"));
@@ -344,6 +386,7 @@ public class AddFamilyMemberFragment extends Fragment implements View.OnClickLis
 
                 dataAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                 spn_age_group.setAdapter(dataAdapter);
+                spn_age_group.setSelection(age_group_id.indexOf(relationship_id));
             }
         }
 
@@ -355,6 +398,7 @@ public class AddFamilyMemberFragment extends Fragment implements View.OnClickLis
             tv_dob.setText("");
             spn_blood_group.setSelection(0);
             spn_age_group.setSelection(0);
+            et_desc.setText("");
         }
     }
 
@@ -429,6 +473,7 @@ public class AddFamilyMemberFragment extends Fragment implements View.OnClickLis
 
         String name = et_family_member_name.getText().toString();
         String dob = tv_dob.getText().toString();
+        String desc = et_desc.getText().toString();
 
         if (name.isEmpty()) {
             et_family_member_name.setError("Enter Name");
@@ -440,16 +485,26 @@ public class AddFamilyMemberFragment extends Fragment implements View.OnClickLis
             Toast.makeText(requireContext(), "Select Blood Group",
                     Toast.LENGTH_LONG).show();
         } else if (spn_age_group.getSelectedItemPosition() == 0) {
-            Toast.makeText(requireContext(), "Select Age Group",
+            Toast.makeText(requireContext(), "Select Relationship",
                     Toast.LENGTH_LONG).show();
         } else {
             loader = Loader.show(requireContext());
 
             Map<String, Object> data = new HashMap<>();
-            data.put("name", name);
-            data.put("date_of_birth", dob);
-            data.put("blood_group_id", selectBloodGroupId);
-            data.put("age_category_id", selectAgeGroupId);
+            if (family_member_id == 0) {
+                data.put("name", name);
+                data.put("date_of_birth", dob);
+                data.put("blood_group_id", selectBloodGroupId);
+                data.put("relationship_id", selectAgeGroupId);
+                data.put("description", desc);
+            } else {
+                data.put("family_member_id", family_member_id);
+                data.put("name", name);
+                data.put("date_of_birth", dob);
+                data.put("blood_group_id", selectBloodGroupId);
+                data.put("relationship_id", selectAgeGroupId);
+                data.put("description", desc);
+            }
 
             if (selectedBitmapImage != null) {
                 File file = new File(requireActivity().getFilesDir(), "image.png");

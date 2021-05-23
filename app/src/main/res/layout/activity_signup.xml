@@ -18,15 +18,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:gravity="center"
-                android:text="VMS APP LOGO"
-                android:textColor="@color/black"
-                android:textSize="22sp" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:src="@drawable/ic_add_photo"
+                android:onClick="onClick"
+                android:layout_gravity="center"/>
 
             <EditText
                 android:id="@+id/etName"
@@ -38,6 +36,31 @@
                 android:hint="Enter Name"
                 android:imeOptions="actionNext"
                 android:inputType="textCapWords" />
+
+            <TextView
+                android:id="@+id/tv_dob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                app:drawableStartCompat="@drawable/ic_calendar"
+                app:drawableLeftCompat="@drawable/ic_calendar"
+                android:drawablePadding="10dp"
+                android:textColor="@color/black"
+                android:gravity="center|start"
+                android:hint="@string/select_date_of_birth"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:padding="10dp" />
+
+            <Spinner
+                android:id="@+id/spn_blood_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:spinnerMode="dialog"/>
 
             <EditText
                 android:id="@+id/etEmailAddress"
@@ -62,6 +85,18 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"/>
 
+            <com.vicmikhailau.maskededittext.MaskedEditText
+                android:id="@+id/etCnic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cnic Number"
+                android:inputType="number"
+                android:maxLength="15"
+                app:mask="#####-#######-#"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"/>
+
             <EditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
@@ -70,7 +105,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
                 android:hint="Enter Password"
-                android:imeOptions="actionDone"
+                android:imeOptions="actionNext"
                 android:inputType="textPassword" />
 
             <EditText

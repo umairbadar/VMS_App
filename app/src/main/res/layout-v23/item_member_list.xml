@@ -1,79 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
         android:layout_width="96dp"
         android:layout_height="0dp"
-        android:src="@drawable/no_image"
+        android:layout_gravity="center"
         android:onClick="onClick"
         android:padding="15dp"
-        android:layout_gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/no_image"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/layout"/>
+        app:layout_constraintEnd_toStartOf="@id/layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/profile_image">
+        app:layout_constraintEnd_toStartOf="@+id/layout2"
+        app:layout_constraintStart_toEndOf="@id/profile_image"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp"
             android:text="Name"
             android:textAllCaps="true"
+            android:textColor="@color/teal_200"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:paddingTop="10dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textColor="@color/teal_200"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_dob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Date of Birth"
-            android:textSize="16sp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:textColor="@color/black"/>
+            android:text="Date of Birth"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_blood_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Blood Group"
-            android:textSize="16sp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:textColor="@color/black"/>
+            android:text="Blood Group"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_age_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:text="Age Group"
+            android:textColor="@color/black"
             android:textSize="16sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_relationship"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Relationship"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:paddingBottom="10dp"
-            android:textColor="@color/black"/>
+            android:text="Description"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/teal_200"
+            android:src="@drawable/ic_edit"
+            android:tint="@color/white"
+            android:contentDescription="@string/app_name"/>
+
+        <ImageButton
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/teal_200"
+            android:src="@drawable/ic_delete"
+            android:tint="@color/white"
+            android:contentDescription="@string/app_name"/>
 
     </LinearLayout>
 
