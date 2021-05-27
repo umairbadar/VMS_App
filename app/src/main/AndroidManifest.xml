@@ -28,9 +28,6 @@
             android:name="com.fyp.vmsapp.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.fyp.vmsapp.VaccinationActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.fyp.vmsapp.Splash"
             android:screenOrientation="portrait">
             <intent-filter>

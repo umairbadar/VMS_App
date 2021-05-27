@@ -27,7 +27,6 @@ import com.fyp.vmsapp.AdapterMemberList;
 import com.fyp.vmsapp.LoginActivity;
 import com.fyp.vmsapp.ModelMemberList;
 import com.fyp.vmsapp.R;
-import com.fyp.vmsapp.VaccinationActivity;
 import com.fyp.vmsapp.utilities.APIRequest;
 import com.fyp.vmsapp.utilities.ConfirmationDialog;
 import com.fyp.vmsapp.utilities.Constants;
@@ -155,7 +154,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
                             jsonObject.isNull("description") ? "" : jsonObject.getString("description"),
                             jsonObject.getInt("family_member_id"),
                             jsonObject.getInt("blood_group_id"),
-                            jsonObject.getInt("relationship_id")
+                            jsonObject.getInt("relationship_id"),
+                            jsonObject.getInt("age_group_id")
                     );
 
                     list.add(item);
@@ -165,11 +165,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
             }
         }
 
-        if (response.has("message")){
+        if (response.has("message")) {
             Toast.makeText(requireContext(), response.getString("message"),
                     Toast.LENGTH_LONG).show();
 
-            if (list.size() > 0){
+            if (list.size() > 0) {
                 list.clear();
                 adapter = null;
             }
@@ -191,8 +191,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void itemClick(String id) {
-        Intent intent = new Intent(requireContext(), VaccinationActivity.class);
-        requireActivity().startActivity(intent);
+
+        Bundle args = new Bundle();
+        args.putInt("id", Integer.parseInt(id));
+        navController.navigate(R.id.nav_vaccination, args);
     }
 
     @Override

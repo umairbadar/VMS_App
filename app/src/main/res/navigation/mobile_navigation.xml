@@ -34,4 +34,10 @@
         android:name="com.fyp.vmsapp.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_vaccination"
+        android:name="com.fyp.vmsapp.ui.vaccination.VaccinationFragment"
+        android:label="@string/menu_vaccination"
+        tools:layout="@layout/fragment_vaccination" />
 </navigation>

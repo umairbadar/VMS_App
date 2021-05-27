@@ -1,13 +1,17 @@
-package com.fyp.vmsapp;
+package com.fyp.vmsapp.ui.vaccination;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.fyp.vmsapp.R;
+import com.fyp.vmsapp.utilities.RecyclerViewItemInterface;
 
 import java.util.List;
 
@@ -15,10 +19,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     List<Model> list;
     Context context;
+    RecyclerViewItemInterface itemListener;
 
-    public Adapter(List<Model> list, Context context) {
+    public Adapter(List<Model> list, Context context, RecyclerViewItemInterface itemListener) {
         this.list = list;
         this.context = context;
+        this.itemListener = itemListener;
     }
 
     @NonNull
@@ -36,6 +42,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         holder.tv_name.setText(item.getName());
 
+        holder.btn_inject.setOnClickListener(view -> itemListener.delete(2));
+        holder.btn_upload_slip.setOnClickListener(view -> itemListener.itemClick("2"));
     }
 
     @Override
@@ -46,11 +54,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     static class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView tv_name;
+        Button btn_upload_slip, btn_inject;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_name = itemView.findViewById(R.id.tv_name);
+
+            btn_inject = itemView.findViewById(R.id.btn_inject);
+            btn_upload_slip = itemView.findViewById(R.id.btn_upload_slip);
         }
     }
 }
