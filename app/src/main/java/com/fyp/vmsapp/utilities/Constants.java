@@ -29,6 +29,7 @@ abstract public class Constants {
             EndpointList = "family_member/list",
             EndpointDeleteMember = "family_member/delete",
             EndpointGetVaccination = "get_vaccination",
+            EndpointNearbyHospitals = "hospitals",
 
     StaffRole = "staff",  //last mile
             RiderRole = "rider",  //last mile

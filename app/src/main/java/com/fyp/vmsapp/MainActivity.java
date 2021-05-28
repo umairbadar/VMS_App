@@ -11,21 +11,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.fyp.vmsapp.utilities.Constants;
-import com.fyp.vmsapp.utilities.Permissions;
-import com.google.android.material.navigation.NavigationView;
-import com.fyp.vmsapp.utilities.ConfirmationDialog;
-import com.fyp.vmsapp.utilities.DialogConfirmationInterface;
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import com.fyp.vmsapp.utilities.ConfirmationDialog;
+import com.fyp.vmsapp.utilities.Constants;
+import com.fyp.vmsapp.utilities.DialogConfirmationInterface;
+import com.fyp.vmsapp.utilities.Permissions;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements DialogConfirmationInterface {
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements DialogConfirmatio
         NavigationView navigationView = findViewById(R.id.nav_view);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_article, R.id.nav_slideshow, R.id.nav_add_family_member,
-                R.id.nav_article_details, R.id.nav_live_consultation, R.id.nav_vaccination)
+                R.id.nav_article_details, R.id.nav_live_consultation, R.id.nav_vaccination, R.id.nav_nearby_hospitals)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -64,10 +64,9 @@ public class MainActivity extends AppCompatActivity implements DialogConfirmatio
 
                 if (id == R.id.nav_logout) {
                     ConfirmationDialog.show(MainActivity.this, "Logout", MainActivity.this);
-                }  else  if (id == R.id.nav_live_consultation) {
+                } else if (id == R.id.nav_live_consultation) {
                     ConfirmationDialog.show(MainActivity.this, "call live consultation", MainActivity.this);
-                }
-                else {
+                } else {
                     NavigationUI.onNavDestinationSelected(item, navController);
                 }
 
@@ -104,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements DialogConfirmatio
 
     @Override
     public void action(String action, Boolean agree) {
-        if (agree){
+        if (agree) {
             if (action.equals("Logout")) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();

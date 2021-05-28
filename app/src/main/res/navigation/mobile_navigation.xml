@@ -40,4 +40,10 @@
         android:name="com.fyp.vmsapp.ui.vaccination.VaccinationFragment"
         android:label="@string/menu_vaccination"
         tools:layout="@layout/fragment_vaccination" />
+
+    <fragment
+        android:id="@+id/nav_nearby_hospitals"
+        android:name="com.fyp.vmsapp.ui.nearby_hospitals.NearbyHospitalsFragment"
+        android:label="@string/nearby_hospitals"
+        tools:layout="@layout/fragment_nearby_hospitals" />
 </navigation>
