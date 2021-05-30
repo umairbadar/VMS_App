@@ -76,7 +76,7 @@ public class APIRequest {
 
             object = api.get(endpoint_url);
         } else if (method == Constants.MethodPOSTSimple) {
-            if ((endpoint.equals(Constants.EndpointAddMember) || endpoint.equals(Constants.EndpointSignup)) && file != null){
+            if ((endpoint.equals(Constants.EndpointAddMember) || endpoint.equals(Constants.EndpointSignup) || endpoint.equals(Constants.EndpointUploadVaccinationSlip) || endpoint.equals(Constants.EndpointUpdateProfile)) && file != null) {
                 object = api.post(endpoint_url, data, file);
             } else {
                 object = api.post(endpoint_url, data);

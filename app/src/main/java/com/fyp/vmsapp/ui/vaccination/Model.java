@@ -4,14 +4,12 @@ public class Model {
 
     private int id;
     private String name;
+    private int status;
 
-    public Model(int id, String name) {
+    public Model(int id, String name, int status) {
         this.id = id;
         this.name = name;
-    }
-
-    public Model(String name) {
-        this.name = name;
+        this.status = status;
     }
 
     public String getName() {
@@ -20,5 +18,9 @@ public class Model {
 
     public int getId() {
         return id;
+    }
+
+    public int getStatus() {
+        return status;
     }
 }

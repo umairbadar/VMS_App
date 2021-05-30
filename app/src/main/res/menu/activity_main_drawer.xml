@@ -9,6 +9,10 @@
             android:icon="@drawable/ic_home"
             android:title="@string/menu_home" />
         <item
+            android:id="@+id/nav_family_member_tree"
+            android:icon="@drawable/ic_person"
+            android:title="@string/menu_family_member_tree" />
+        <item
             android:id="@+id/nav_article"
             android:icon="@drawable/ic_article"
             android:title="@string/menu_article" />
@@ -20,6 +24,14 @@
             android:id="@+id/nav_nearby_hospitals"
             android:icon="@drawable/ic_hospital"
             android:title="@string/nearby_hospitals" />
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_history"
+            android:title="@string/menu_history" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_person"
+            android:title="@string/menu_profile" />
         <item
             android:id="@+id/nav_slideshow"
             android:title="@string/menu_slideshow"

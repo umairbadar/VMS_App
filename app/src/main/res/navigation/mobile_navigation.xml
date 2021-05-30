@@ -12,8 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/nav_family_member_tree"
+        android:name="com.fyp.vmsapp.ui.family_member.FamilyMemberTreeFragment"
+        android:label="@string/menu_family_member_tree"
+        tools:layout="@layout/fragment_family_member_tree" />
+
+    <fragment
         android:id="@+id/nav_add_family_member"
-        android:name="com.fyp.vmsapp.ui.home.AddFamilyMemberFragment"
+        android:name="com.fyp.vmsapp.ui.family_member.AddFamilyMemberFragment"
         android:label="@string/menu_add_family_member"
         tools:layout="@layout/fragment_add_family_member" />
 
@@ -46,4 +52,16 @@
         android:name="com.fyp.vmsapp.ui.nearby_hospitals.NearbyHospitalsFragment"
         android:label="@string/nearby_hospitals"
         tools:layout="@layout/fragment_nearby_hospitals" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.fyp.vmsapp.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/nav_history"
+        android:name="com.fyp.vmsapp.ui.history.HistoryFragment"
+        android:label="@string/menu_history"
+        tools:layout="@layout/fragment_history" />
 </navigation>

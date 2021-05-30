@@ -42,8 +42,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         holder.tv_name.setText(item.getName());
 
-        holder.btn_inject.setOnClickListener(view -> itemListener.delete(2));
-        holder.btn_upload_slip.setOnClickListener(view -> itemListener.itemClick("2"));
+        holder.btn_inject.setOnClickListener(view -> itemListener.delete(item.getId()));
+        holder.btn_upload_slip.setOnClickListener(view -> itemListener.itemClick("2", item.getId()));
+
+        if (item.getStatus() == 0){
+            holder.btn_inject.setEnabled(true);
+            holder.btn_upload_slip.setEnabled(false);
+        } else if (item.getStatus() == 1){
+            holder.btn_inject.setEnabled(false);
+            holder.btn_upload_slip.setEnabled(true);
+        } else {
+            holder.btn_inject.setEnabled(false);
+            holder.btn_upload_slip.setEnabled(false);
+        }
     }
 
     @Override

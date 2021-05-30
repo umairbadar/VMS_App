@@ -70,7 +70,7 @@ public class AdapterMemberList extends RecyclerView.Adapter<AdapterMemberList.Vi
         }
 
         holder.mainLayout.setOnClickListener(view ->
-                itemListener.itemClick(String.valueOf(item.getAge_group_id())));
+                itemListener.itemClick(String.valueOf(item.getAge_group_id()), item.getFamily_member_id()));
 
         holder.btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -383,7 +383,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         } else if (phoneNumber.isEmpty()) {
             activitySignupBinding.etPhoneNumber.setError("Enter Phone Number");
             activitySignupBinding.etPhoneNumber.requestFocus();
-        } else if (phoneNumber.length() < 11) {
+        } else if (phoneNumber.length() < 12) {
             activitySignupBinding.etPhoneNumber.setError("Enter Valid Phone Number");
             activitySignupBinding.etPhoneNumber.requestFocus();
         } else if (cnic.isEmpty()) {

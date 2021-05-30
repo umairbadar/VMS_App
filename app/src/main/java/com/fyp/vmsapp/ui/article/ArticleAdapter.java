@@ -42,7 +42,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         holder.tv_name.setText(item.getName());
 
         holder.tv_name.setOnClickListener(view ->
-                itemListener.itemClick(item.getName()));
+                itemListener.itemClick(item.getName(),item.getId()));
     }
 
     @Override

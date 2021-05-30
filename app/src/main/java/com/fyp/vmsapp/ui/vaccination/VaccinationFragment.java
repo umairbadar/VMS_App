@@ -21,9 +21,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +44,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -70,18 +74,39 @@ public class VaccinationFragment extends Fragment implements RecyclerViewItemInt
     private String authorization;
 
     private ProgressDialog loader;
-    private int age_group_id;
+    private int age_group_id, family_member_id;
+    private int vaccine_id;
+    private boolean cameraStatus = false;
+
+    private NavController navController;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null){
-            age_group_id = getArguments().getInt("id");
-        }
-
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("data", MODE_PRIVATE);
         authorization = sharedPreferences.getString("api_token", "");
+
+        if (getArguments() != null) {
+            age_group_id = getArguments().getInt("id");
+            family_member_id = getArguments().getInt("family_member_id");
+            vaccine_id = getArguments().getInt("vaccine_id");
+            cameraStatus = getArguments().getBoolean("cameraStatus");
+
+            String filename = getArguments().getString("bitmap");
+
+            if (!filename.equals("")) {
+                try {
+                    FileInputStream bitmap_stream = requireActivity().openFileInput(filename);
+                    selectedBitmapImage = BitmapFactory.decodeStream(bitmap_stream);
+                    bitmap_stream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                uploadSlip(selectedBitmapImage);
+            }
+        }
     }
 
     @Override
@@ -93,6 +118,8 @@ public class VaccinationFragment extends Fragment implements RecyclerViewItemInt
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        navController = Navigation.findNavController(view);
+
         RecyclerView vaccination_list = view.findViewById(R.id.vaccination_list);
         vaccination_list.setLayoutManager(new LinearLayoutManager(requireContext()));
         list = new ArrayList<>();
@@ -102,7 +129,8 @@ public class VaccinationFragment extends Fragment implements RecyclerViewItemInt
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL);
         vaccination_list.addItemDecoration(dividerItemDecoration);
 
-        getVaccinationList();
+        if (!cameraStatus)
+            getVaccinationList();
     }
 
     private void getVaccinationList() {
@@ -111,6 +139,7 @@ public class VaccinationFragment extends Fragment implements RecyclerViewItemInt
 
         Map<String, Object> data = new HashMap<>();
         data.put("age_group_id", age_group_id);
+        data.put("family_member_id", family_member_id);
 
         APIRequest.request("", Constants.MethodPOSTSimple,
                 Constants.EndpointGetVaccination, data, null, null, this);
@@ -135,7 +164,15 @@ public class VaccinationFragment extends Fragment implements RecyclerViewItemInt
                 selectedBitmapImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 stream.close();
                 selectedBitmapImage.recycle();
-                uploadSlip(selectedBitmapImage);
+
+                Bundle args = new Bundle();
+                args.putString("bitmap", filename);
+                args.putBoolean("cameraStatus", true);
+                args.putInt("id", age_group_id);
+                args.putInt("vaccine_id", vaccine_id);
+                args.putInt("family_member_id", family_member_id);
+                NavOptions navOptions = new NavOptions.Builder().setPopUpTo(R.id.nav_vaccination, true).build();
+                navController.navigate(R.id.nav_vaccination, args, navOptions);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -143,9 +180,13 @@ public class VaccinationFragment extends Fragment implements RecyclerViewItemInt
         }
     }
 
-    private void uploadSlip(Bitmap bitmap){
+    private void uploadSlip(Bitmap bitmap) {
+
+        loader = Loader.show(requireContext());
 
         Map<String, Object> data = new HashMap<>();
+        data.put("family_member_id", family_member_id);
+        data.put("vaccine_id", vaccine_id);
 
         File file = new File(requireActivity().getFilesDir(), "image.png");
 
@@ -167,9 +208,9 @@ public class VaccinationFragment extends Fragment implements RecyclerViewItemInt
         RequestBody requestBody = RequestBody.create(file,
                 MediaType.parse("image/*"));
         MultipartBody.Part image = MultipartBody.Part.createFormData(
-                "image", file.getName(), requestBody);
+                "slip_image", file.getName(), requestBody);
         APIRequest.request(authorization, Constants.MethodPOSTSimple,
-                Constants.EndpointAddMember, data, image, null, this);
+                Constants.EndpointUploadVaccinationSlip, data, image, null, this);
     }
 
     private byte[] bitmapToByte(Bitmap bitmap) {
@@ -222,8 +263,9 @@ public class VaccinationFragment extends Fragment implements RecyclerViewItemInt
     }
 
     @Override
-    public void itemClick(String id) {
+    public void itemClick(String id, int family_member_id) {
         //upload slip
+        vaccine_id = family_member_id;
         showChooserDialog();
     }
 
@@ -235,23 +277,44 @@ public class VaccinationFragment extends Fragment implements RecyclerViewItemInt
     @Override
     public void delete(int id) {
         //inject
+        new AlertDialog.Builder(requireContext())
+                .setMessage("Are you sure, you wish to inject this vaccination?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    loader = Loader.show(requireContext());
+
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("vaccine_id", id);
+                    data.put("family_member_id", family_member_id);
+
+                    APIRequest.request("", Constants.MethodPOSTSimple,
+                            Constants.EndpointInjectVaccination, data, null, null, this);
+                })
+                .setNegativeButton("No", null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     @Override
     public void response(JSONObject response) throws JSONException {
 
-        if (loader != null && loader.isShowing()) {
-            loader.dismiss();
-        }
+        if (response.has("data")) {
 
-        if (response.has("data")){
-            if (response.getJSONArray("data").length() > 0){
+            if (loader != null && loader.isShowing()) {
+                loader.dismiss();
+            }
+
+            if (list.size() > 0) {
+                list.clear();
+            }
+
+            if (response.getJSONArray("data").length() > 0) {
                 JSONArray jsonArray = response.getJSONArray("data");
-                for (int i = 0; i < jsonArray.length(); i++){
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     Model item = new Model(
                             jsonObject.getInt("id"),
-                            jsonObject.getString("vaccine_name")
+                            jsonObject.getString("name"),
+                            jsonObject.getInt("status")
                     );
                     list.add(item);
                     adapter.notifyDataSetChanged();
@@ -259,6 +322,17 @@ public class VaccinationFragment extends Fragment implements RecyclerViewItemInt
             }
         }
 
+        if (response.has("message")) {
+            Toast.makeText(requireContext(), response.getString("message"),
+                    Toast.LENGTH_LONG).show();
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("age_group_id", age_group_id);
+            data.put("family_member_id", family_member_id);
+
+            APIRequest.request("", Constants.MethodPOSTSimple,
+                    Constants.EndpointGetVaccination, data, null, null, this);
+        }
     }
 
     @Override

@@ -30,6 +30,12 @@ abstract public class Constants {
             EndpointDeleteMember = "family_member/delete",
             EndpointGetVaccination = "get_vaccination",
             EndpointNearbyHospitals = "hospitals",
+            EndpointArticles = "get_articles_title",
+            EndpointArticleContent = "get_articles_content",
+            EndpointInjectVaccination = "vaccination_injected",
+            EndpointUploadVaccinationSlip = "vaccination_upload_slip",
+            EndpointGetProfile = "get_profile",
+            EndpointUpdateProfile = "update_profile",
 
     StaffRole = "staff",  //last mile
             RiderRole = "rider",  //last mile

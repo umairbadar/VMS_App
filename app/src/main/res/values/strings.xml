@@ -18,7 +18,8 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Family Member Tree</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_family_member_tree">Family Member Tree</string>
     <string name="menu_add_family_member">Add Family Member</string>
     <string name="menu_article">Article</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -36,5 +37,10 @@
     <string name="nearby_hospitals">Nearby Hospitals</string>
     <string name="google_maps_key">AIzaSyB9sfmrQqtjiWwSd2EZQBZAtd5oU19sDlM</string>
     <string name="find_nearby_hospitals">Find Nearby Hospitals</string>
+    <string name="upcoming_vaccinations">Upcoming Vaccinations</string>
+    <string name="menu_history">History</string>
+    <string name="search">Search</string>
+    <string name="create_pdf">Create PDF</string>
+    <string name="menu_profile">Profile</string>
 
 </resources>
