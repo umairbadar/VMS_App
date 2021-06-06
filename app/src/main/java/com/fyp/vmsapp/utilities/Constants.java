@@ -36,6 +36,8 @@ abstract public class Constants {
             EndpointUploadVaccinationSlip = "vaccination_upload_slip",
             EndpointGetProfile = "get_profile",
             EndpointUpdateProfile = "update_profile",
+            EndpointSendDeviceTokenToServer = "update_device_token",
+            EndpointUpcomingVaccinations = "upcoming_vaccination",
 
     StaffRole = "staff",  //last mile
             RiderRole = "rider",  //last mile

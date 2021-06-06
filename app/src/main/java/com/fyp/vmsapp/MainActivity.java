@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -21,13 +22,21 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.fyp.vmsapp.utilities.APIRequest;
 import com.fyp.vmsapp.utilities.ConfirmationDialog;
 import com.fyp.vmsapp.utilities.Constants;
 import com.fyp.vmsapp.utilities.DialogConfirmationInterface;
 import com.fyp.vmsapp.utilities.Permissions;
+import com.fyp.vmsapp.utilities.ResponseInterface;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements DialogConfirmationInterface {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class MainActivity extends AppCompatActivity implements DialogConfirmationInterface, ResponseInterface {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -44,13 +53,18 @@ public class MainActivity extends AppCompatActivity implements DialogConfirmatio
         setSupportActionBar(toolbar);
 
         sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
+        String authorization = sharedPreferences.getString("api_token", "");
+        String token = sharedPreferences.getString("token", "");
+        if (!token.equals("")){
+            sendTokenToServer(authorization, token);
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_family_member_tree, R.id.nav_article, R.id.nav_slideshow, R.id.nav_add_family_member,
                 R.id.nav_article_details, R.id.nav_live_consultation, R.id.nav_vaccination, R.id.nav_nearby_hospitals,
-                R.id.nav_history, R.id.nav_profile)
+                R.id.nav_history, R.id.nav_profile, R.id.nav_upcoming_vaccination)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -81,6 +95,27 @@ public class MainActivity extends AppCompatActivity implements DialogConfirmatio
         tv_name.setText(sharedPreferences.getString("name", ""));
     }
 
+    private void sendTokenToServer(String auth, String token) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("device_token", token);
+
+        APIRequest.request(auth, Constants.MethodPOSTSimple,
+                Constants.EndpointSendDeviceTokenToServer, data, null, null, this);
+
+    }
+
+    @Override
+    public void response(JSONObject response) throws JSONException {
+        Log.e("TAG", "response: " + response);
+    }
+
+    @Override
+    public void failure(String message) {
+
+        Log.e("TAG", "failure: " + message);
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -107,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements DialogConfirmatio
         if (agree) {
             if (action.equals("Logout")) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
+                editor.remove("logged_in_status");
                 editor.apply();
 
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);

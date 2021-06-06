@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "211684519595",
+    "project_id": "vaccination-management-s-7cf60",
+    "storage_bucket": "vaccination-management-s-7cf60.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211684519595:android:50c8efc2cccd25618f91ee",
+        "android_client_info": {
+          "package_name": "com.fyp.vmsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "211684519595-psjt630u5m85rlkqvt2srgihpakqieni.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fyp.vmsapp",
+            "certificate_hash": "de4ef33f2ddbd668502b1fab81828302f3c237eb"
+          }
+        },
+        {
+          "client_id": "211684519595-3v89g7kgll5ag2fd17s3nqc37dcec2lk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnJjI3ybJJOvVBKw6CWGMs5_1-JWjd6jY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "211684519595-3v89g7kgll5ag2fd17s3nqc37dcec2lk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
