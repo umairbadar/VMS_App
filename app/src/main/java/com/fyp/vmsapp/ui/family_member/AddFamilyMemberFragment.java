@@ -399,6 +399,7 @@ public class AddFamilyMemberFragment extends Fragment implements View.OnClickLis
             spn_blood_group.setSelection(0);
             spn_age_group.setSelection(0);
             et_desc.setText("");
+            navController.navigateUp();
         }
     }
 
