@@ -215,7 +215,7 @@ public class FamilyMemberTreeFragment extends Fragment implements View.OnClickLi
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(int id, String hospital_name) {
         this.id = id;
         ConfirmationDialog.show(requireContext(), "delete this family member", this);
     }

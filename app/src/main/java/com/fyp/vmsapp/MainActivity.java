@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements DialogConfirmatio
         sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
         String authorization = sharedPreferences.getString("api_token", "");
         String token = sharedPreferences.getString("token", "");
-        if (!token.equals("")){
+        if (!token.equals("")) {
             sendTokenToServer(authorization, token);
         }
 
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements DialogConfirmatio
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_family_member_tree, R.id.nav_article, R.id.nav_slideshow, R.id.nav_add_family_member,
                 R.id.nav_article_details, R.id.nav_live_consultation, R.id.nav_vaccination, R.id.nav_nearby_hospitals,
-                R.id.nav_history, R.id.nav_profile, R.id.nav_upcoming_vaccination)
+                R.id.nav_history, R.id.nav_profile, R.id.nav_upcoming_vaccination, R.id.nav_vaccination_schedule)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -81,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements DialogConfirmatio
                     ConfirmationDialog.show(MainActivity.this, "Logout", MainActivity.this);
                 } else if (id == R.id.nav_live_consultation) {
                     ConfirmationDialog.show(MainActivity.this, "call live consultation", MainActivity.this);
+                } else if (id == R.id.nav_vaccination_schedule) {
+                    ConfirmationDialog.show(MainActivity.this, "view the vaccination schedule", MainActivity.this);
                 } else {
                     NavigationUI.onNavDestinationSelected(item, navController);
                 }
@@ -150,6 +152,9 @@ public class MainActivity extends AppCompatActivity implements DialogConfirmatio
                 startActivity(intent);
             } else if (action.equals("call live consultation")) {
                 contactSupport();
+            } else if (action.equals("view the vaccination schedule")) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.africau.edu/images/default/sample.pdf"));
+                startActivity(browserIntent);
             }
         }
     }

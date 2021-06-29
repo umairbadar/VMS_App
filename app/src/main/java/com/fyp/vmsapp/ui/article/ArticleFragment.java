@@ -91,7 +91,7 @@ public class ArticleFragment extends Fragment implements RecyclerViewItemInterfa
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(int id, String hospital_name) {
     }
 
     @Override

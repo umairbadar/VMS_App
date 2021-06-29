@@ -278,18 +278,20 @@ public class HistoryFragment extends Fragment implements ResponseInterface, View
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         int status = jsonObject.getInt("status");
+                        String hospital_name = jsonObject.isNull("hospital_name") ? "" : jsonObject.getString("hospital_name");
                         HistoryModel item = new HistoryModel(
                                 jsonObject.getInt("id"),
                                 jsonObject.getString("name"),
+                                hospital_name,
                                 status,
                                 jsonObject.isNull("slip_img") ? "" : jsonObject.getString("slip_img")
                         );
                         if (status == 0) {
                             pdf.add(jsonObject.getString("name") + "     Not injected");
                         } else if (status == 1) {
-                            pdf.add(jsonObject.getString("name") + "     Injected but slip not uploaded");
+                            pdf.add(jsonObject.getString("name") + "     Injected from " + hospital_name + " but slip not uploaded");
                         } else if (status == 2) {
-                            pdf.add(jsonObject.getString("name") + "     Injected & slip uploaded");
+                            pdf.add(jsonObject.getString("name") + "     Injected from " + hospital_name + "  & slip uploaded");
                         }
                         list.add(item);
                         adapter.notifyDataSetChanged();
@@ -333,7 +335,7 @@ public class HistoryFragment extends Fragment implements ResponseInterface, View
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(int id, String hospital_name) {
 
     }
 

@@ -5,5 +5,5 @@ public interface RecyclerViewItemInterface {
 
     void edit(String imagePath, int family_member_id, int blood_group_id, int relationship_id, String name, String desc, String dob);
 
-    void delete(int id);
+    void delete(int id, String hospital_name);
 }

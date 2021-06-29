@@ -33,6 +33,7 @@ import com.fyp.vmsapp.databinding.ActivitySignupBinding;
 import com.fyp.vmsapp.utilities.APIRequest;
 import com.fyp.vmsapp.utilities.Constants;
 import com.fyp.vmsapp.utilities.Loader;
+import com.fyp.vmsapp.utilities.Permissions;
 import com.fyp.vmsapp.utilities.ResponseInterface;
 
 import org.json.JSONArray;
@@ -83,6 +84,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
         activitySignupBinding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(activitySignupBinding.getRoot());
+
+        Permissions.verify(this);
 
         if (getIntent().hasExtra("bitmap")) {
             String filename = getIntent().getStringExtra("bitmap");
@@ -328,8 +331,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         tv_open_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                startActivityForResult(intent, Constants.RequestCode);
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                    startActivityForResult(intent, Constants.RequestCode);
+                }
                 dialog.dismiss();
             }
         });

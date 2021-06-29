@@ -46,6 +46,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String title = remoteMessage.getData().get("title");
             String body = remoteMessage.getData().get("body");
             if (title != null && body != null) {
+                body += " This Vaccination will be easily available in the following hospitals. Aga Khan Hospital, Liaquat National Hospital, Patel Hospital.";
                 Intent intent = new Intent();
                 if (!applicationInForeground()) {
                     intent = new Intent(this, MainActivity.class);
@@ -57,10 +58,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                 NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                String Notification_Channel_ID = "trax.bolt";
+                String Notification_Channel_ID = "trax.vms_app";
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     NotificationChannel notificationChannel = new NotificationChannel(Notification_Channel_ID, "Notification", NotificationManager.IMPORTANCE_HIGH);
-                    notificationChannel.setDescription("Bolt");
+                    notificationChannel.setDescription("vms_app");
                     notificationChannel.enableLights(true);
                     notificationChannel.setLightColor(Color.BLUE);
                     notificationChannel.setSound(defaultSoundUri, null);

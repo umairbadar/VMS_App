@@ -275,7 +275,7 @@ public class VaccinationFragment extends Fragment implements RecyclerViewItemInt
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(int id, String hospital_name) {
         //inject
         new AlertDialog.Builder(requireContext())
                 .setMessage("Are you sure, you wish to inject this vaccination?")
@@ -285,6 +285,7 @@ public class VaccinationFragment extends Fragment implements RecyclerViewItemInt
                     Map<String, Object> data = new HashMap<>();
                     data.put("vaccine_id", id);
                     data.put("family_member_id", family_member_id);
+                    data.put("hospital_name", hospital_name);
 
                     APIRequest.request("", Constants.MethodPOSTSimple,
                             Constants.EndpointInjectVaccination, data, null, null, this);

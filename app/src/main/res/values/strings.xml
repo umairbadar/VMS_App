@@ -43,5 +43,6 @@
     <string name="create_pdf">Create PDF</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_upcoming_vaccination" >Upcoming Vaccinations</string>
+    <string name="vaccination_schedule">Vaccination Schedule</string>
 
 </resources>

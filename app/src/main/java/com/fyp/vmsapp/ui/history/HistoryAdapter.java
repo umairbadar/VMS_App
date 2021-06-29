@@ -42,15 +42,23 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
         holder.tv_name.setText(item.getName());
 
-        if (item.getStatus() == 0){
+        if (item.getStatus() == 0) {
             holder.tv_status.setText("Not Injected");
             holder.btn_view_slip.setEnabled(false);
-        } else if (item.getStatus() == 1){
+        } else if (item.getStatus() == 1) {
             holder.tv_status.setText("Injected but slip not uploaded");
             holder.btn_view_slip.setEnabled(false);
+            if (!item.getHospital_name().equals("")) {
+                holder.tv_hospital_name.setVisibility(View.VISIBLE);
+                holder.tv_hospital_name.setText("Injected from " + item.getHospital_name());
+            }
         } else {
             holder.tv_status.setText("Injected & Slip uploaded");
             holder.btn_view_slip.setEnabled(true);
+            if (!item.getHospital_name().equals("")) {
+                holder.tv_hospital_name.setVisibility(View.VISIBLE);
+                holder.tv_hospital_name.setText("Injected from " + item.getHospital_name());
+            }
         }
 
         holder.btn_view_slip.setOnClickListener(v -> {
@@ -65,15 +73,16 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         return list.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_name, tv_status;
+        TextView tv_name, tv_status, tv_hospital_name;
         Button btn_view_slip;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_name = itemView.findViewById(R.id.tv_name);
+            tv_hospital_name = itemView.findViewById(R.id.tv_hospital_name);
             tv_status = itemView.findViewById(R.id.tv_status);
 
             btn_view_slip = itemView.findViewById(R.id.btn_view_slip);
