@@ -56,7 +56,7 @@ public class AdapterMemberList extends RecyclerView.Adapter<AdapterMemberList.Vi
         holder.tv_relationship.setText(item.getRelationship());
         holder.tv_desc.setText("Description: " + item.getDesc());
 
-        String url = Constants.BaseURL + "/storage/app/public/" + item.getImage_path();
+        String url = Constants.BaseURL + "/public/storage/" + item.getImage_path();
 
         if (!item.getImage_path().equals("")){
             Picasso.get()

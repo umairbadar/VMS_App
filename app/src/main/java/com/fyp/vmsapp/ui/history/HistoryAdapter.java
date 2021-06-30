@@ -46,23 +46,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             holder.tv_status.setText("Not Injected");
             holder.btn_view_slip.setEnabled(false);
         } else if (item.getStatus() == 1) {
-            holder.tv_status.setText("Injected but slip not uploaded");
+            holder.tv_status.setText("Injected from " + item.getHospital_name() + " but slip not uploaded");
             holder.btn_view_slip.setEnabled(false);
-            if (!item.getHospital_name().equals("")) {
-                holder.tv_hospital_name.setVisibility(View.VISIBLE);
-                holder.tv_hospital_name.setText("Injected from " + item.getHospital_name());
-            }
         } else {
-            holder.tv_status.setText("Injected & Slip uploaded");
+            holder.tv_status.setText("Injected from " + item.getHospital_name() + " & Slip uploaded");
             holder.btn_view_slip.setEnabled(true);
-            if (!item.getHospital_name().equals("")) {
-                holder.tv_hospital_name.setVisibility(View.VISIBLE);
-                holder.tv_hospital_name.setText("Injected from " + item.getHospital_name());
-            }
         }
 
         holder.btn_view_slip.setOnClickListener(v -> {
-            String url = Constants.BaseURL + "/storage/app/public/" + item.getSlip_img();
+            String url = Constants.BaseURL + "/public/storage/" + item.getSlip_img();
             itemInterface.itemClick(url, 1);
         });
 
@@ -75,14 +67,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_name, tv_status, tv_hospital_name;
+        TextView tv_name, tv_status;
         Button btn_view_slip;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_name = itemView.findViewById(R.id.tv_name);
-            tv_hospital_name = itemView.findViewById(R.id.tv_hospital_name);
             tv_status = itemView.findViewById(R.id.tv_status);
 
             btn_view_slip = itemView.findViewById(R.id.btn_view_slip);

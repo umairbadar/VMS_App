@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements DialogConfirmatio
             } else if (action.equals("call live consultation")) {
                 contactSupport();
             } else if (action.equals("view the vaccination schedule")) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.africau.edu/images/default/sample.pdf"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://vaccinationmanagementsystem.com/public/storage/vaccine_schedule.pdf"));
                 startActivity(browserIntent);
             }
         }
