@@ -188,7 +188,7 @@ public class HistoryFragment extends Fragment implements ResponseInterface, View
 
         //paint.setTextAlign(Paint.Align.CENTER);
         //paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-        paint.setTextSize(50);
+        paint.setTextSize(30);
 
 
         canvas.drawText("Family Member Name: " + selectFamilyMemberName, 10, 270, paint1);
@@ -279,19 +279,21 @@ public class HistoryFragment extends Fragment implements ResponseInterface, View
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         int status = jsonObject.getInt("status");
                         String hospital_name = jsonObject.isNull("hospital_name") ? "" : jsonObject.getString("hospital_name");
+                        String created_at = jsonObject.isNull("created_at") ? "" : jsonObject.getString("created_at");
                         HistoryModel item = new HistoryModel(
                                 jsonObject.getInt("id"),
                                 jsonObject.getString("name"),
                                 hospital_name,
+                                created_at,
                                 status,
                                 jsonObject.isNull("slip_img") ? "" : jsonObject.getString("slip_img")
                         );
                         if (status == 0) {
                             pdf.add(jsonObject.getString("name") + "     Not injected");
                         } else if (status == 1) {
-                            pdf.add(jsonObject.getString("name") + "     Injected from " + hospital_name + " but slip not uploaded");
+                            pdf.add(jsonObject.getString("name") + "     Vaccinated from " + hospital_name + " but slip not uploaded at " + created_at);
                         } else if (status == 2) {
-                            pdf.add(jsonObject.getString("name") + "     Injected from " + hospital_name + "  & slip uploaded");
+                            pdf.add(jsonObject.getString("name") + "     Vaccinated from " + hospital_name + "  & slip uploaded at " + created_at);
                         }
                         list.add(item);
                         adapter.notifyDataSetChanged();

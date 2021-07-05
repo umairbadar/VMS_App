@@ -70,10 +70,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements
         } else if (item.getStatus() == 1) {
             holder.spn_hospitals.setEnabled(false);
             holder.btn_inject.setEnabled(false);
+            holder.btn_inject.setText("Vaccinated");
             holder.btn_upload_slip.setEnabled(true);
         } else {
             holder.spn_hospitals.setEnabled(false);
             holder.btn_inject.setEnabled(false);
+            holder.btn_inject.setText("Vaccinated");
             holder.btn_upload_slip.setEnabled(false);
         }
 

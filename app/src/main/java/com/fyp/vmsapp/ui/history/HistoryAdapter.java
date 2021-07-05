@@ -41,15 +41,16 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         HistoryModel item = list.get(position);
 
         holder.tv_name.setText(item.getName());
+        holder.tv_date.setText("Date Time: " + item.getCreated_at());
 
         if (item.getStatus() == 0) {
             holder.tv_status.setText("Not Injected");
             holder.btn_view_slip.setEnabled(false);
         } else if (item.getStatus() == 1) {
-            holder.tv_status.setText("Injected from " + item.getHospital_name() + " but slip not uploaded");
+            holder.tv_status.setText("Vaccinated from " + item.getHospital_name() + " but slip not uploaded");
             holder.btn_view_slip.setEnabled(false);
         } else {
-            holder.tv_status.setText("Injected from " + item.getHospital_name() + " & Slip uploaded");
+            holder.tv_status.setText("Vaccinated from " + item.getHospital_name() + " & Slip uploaded");
             holder.btn_view_slip.setEnabled(true);
         }
 
@@ -67,7 +68,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_name, tv_status;
+        TextView tv_name, tv_status, tv_date;
         Button btn_view_slip;
 
         public ViewHolder(@NonNull View itemView) {
@@ -75,6 +76,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_status = itemView.findViewById(R.id.tv_status);
+            tv_date = itemView.findViewById(R.id.tv_date);
 
             btn_view_slip = itemView.findViewById(R.id.btn_view_slip);
         }

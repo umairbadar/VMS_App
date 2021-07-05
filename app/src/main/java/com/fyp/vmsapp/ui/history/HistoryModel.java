@@ -5,8 +5,18 @@ public class HistoryModel {
     private int id;
     private String name;
     private String hospital_name;
+    private String created_at;
     private int status;
     private String slip_img;
+
+    public HistoryModel(int id, String name, String hospital_name, String created_at, int status, String slip_img) {
+        this.id = id;
+        this.name = name;
+        this.hospital_name = hospital_name;
+        this.created_at = created_at;
+        this.status = status;
+        this.slip_img = slip_img;
+    }
 
     public HistoryModel(int id, String name, String hospital_name, int status, String slip_img) {
         this.id = id;
@@ -34,5 +44,9 @@ public class HistoryModel {
 
     public String getHospital_name() {
         return hospital_name;
+    }
+
+    public String getCreated_at() {
+        return created_at;
     }
 }

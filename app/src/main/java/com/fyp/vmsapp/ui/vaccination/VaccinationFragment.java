@@ -327,12 +327,18 @@ public class VaccinationFragment extends Fragment implements RecyclerViewItemInt
             Toast.makeText(requireContext(), response.getString("message"),
                     Toast.LENGTH_LONG).show();
 
-            Map<String, Object> data = new HashMap<>();
+            if (loader != null && loader.isShowing()) {
+                loader.dismiss();
+            }
+
+            /*Map<String, Object> data = new HashMap<>();
             data.put("age_group_id", age_group_id);
             data.put("family_member_id", family_member_id);
 
             APIRequest.request("", Constants.MethodPOSTSimple,
-                    Constants.EndpointGetVaccination, data, null, null, this);
+                    Constants.EndpointGetVaccination, data, null, null, this);*/
+
+            navController.navigate(R.id.nav_home);
         }
     }
 
